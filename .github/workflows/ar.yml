@@ -1,0 +1,31 @@
+name: K6 load test
+
+on:
+  push:
+    branches:
+      - main  # Substitua 'main' pelo nome da sua branch principal, se necessário
+
+jobs:
+  build:
+    name: K6 load test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Run K6 load test
+        uses: grafana/k6-action@v0.3.0.1
+        with:
+          filename: "scripts\teste-esteira.js"
+
+      - name: Create Report Directory
+        run: mkdir report
+
+      - name: Move Index HTML to Report Directory
+        run: mv index.html report
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with: 
+          name: Performance Test Report
+          path: report
