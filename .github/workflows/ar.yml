@@ -21,8 +21,12 @@ jobs:
       - name: Instalar dependências Python
         run: pip install -r requirements.txt
 
-      - name: Setup K6
-        uses: k6io/setup-k6@v0.1.4
+      - name: Install k6
+        run: |
+          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          sudo apt-add-repository "deb https://dl.k6.io/deb stable main"
+          sudo apt-get update
+          sudo apt-get install k6
 
       - name: Executar teste de carga K6
         run: k6 run teste-esteira.js  # Substitua pelo seu script K6
