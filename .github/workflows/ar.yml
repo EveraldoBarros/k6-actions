@@ -48,7 +48,3 @@ jobs:
         with: 
           name: Relatório de Teste de Performance
           path: report
-
-      - name: Gerar relatório HTML
-         run: node k6-reporter.js
-         working-directory: ${{ github.workspace }}
