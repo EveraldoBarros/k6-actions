@@ -1,4 +1,4 @@
-name: Teste de carga Python e K6
+name: Teste de performance K6
 
 on:
   push:
