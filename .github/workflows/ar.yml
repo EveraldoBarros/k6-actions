@@ -48,3 +48,17 @@ jobs:
         with: 
           name: Relatório de Teste de Performance
           path: report
+
+      - name: Criar diretório de relatório
+  run: mkdir -p report
+
+- name: Gerar relatório HTML
+  run: node k6-reporter.js
+  working-directory: ${{ github.workspace }}
+
+- name: Upload artefato
+  uses: actions/upload-artifact@v3
+  with: 
+    name: Relatório de Teste de Performance
+    path: report
+    
