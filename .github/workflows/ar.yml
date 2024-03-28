@@ -18,6 +18,11 @@ jobs:
         with:
           python-version: '3.x' # Especifique a versão do Python que você precisa
 
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.0'
+
       - name: Instalar dependências Python
         run: pip install -r requirements.txt
 
