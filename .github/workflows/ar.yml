@@ -70,7 +70,7 @@ fs.writeFileSync('report/index.html', htmlContent);" > k6-reporter.js
         run: node k6-reporter.js
         working-directory: ${{ github.workspace }}
 
-      - name: Carregar artefato
+      - name: Upload artefato
         uses: actions/upload-artifact@v3
         with: 
           name: Relatório de Teste de Performance
