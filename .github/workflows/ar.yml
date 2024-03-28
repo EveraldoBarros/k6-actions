@@ -28,9 +28,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install k6
 
-      - name: Criar arquivo package.json com dependências npm
-        run: echo '{"dependencies": {"k6-reporter": "^0.1.0"}}' > package.json
-
       - name: Instalar dependências npm
         run: npm install
 
@@ -41,7 +38,7 @@ jobs:
         run: mkdir -p report
 
       - name: Gerar relatório HTML
-        run: node ./k6-reporter.js result.json report/index.html
+        run: node /home/runner/work/k6-no-actions/k6-reporter.js result.json report/index.html
         working-directory: ${{ github.workspace }}
 
       - name: Carregar artefato
