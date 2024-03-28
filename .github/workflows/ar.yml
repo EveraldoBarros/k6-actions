@@ -28,6 +28,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install k6
 
+      - name: Criar arquivo package.json com dependências npm
+        run: echo '{"dependencies": {"k6-reporter": "^0.1.0"}}' > package.json
+
+      - name: Instalar dependências npm
+        run: npm install
+
       - name: Executar teste de carga K6 e gerar relatório JSON
         run: k6 run --out json=result.json teste-esteira.js  # Gera um relatório JSON
 
