@@ -28,14 +28,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install k6
 
-      - name: Executar teste de carga K6 e gerar relatório
-        run: k6 run --out html=result.html teste-esteira.js  # Gera um relatório HTML
+      - name: Executar teste de carga K6 e gerar relatório JSON
+        run: k6 run --out json=result.json teste-esteira.js  # Gera um relatório JSON
 
-      - name: Criar diretório de relatório
-        run: mkdir report
-
-      - name: Mover o relatório HTML para o diretório de relatório
-        run: mv result.html report/index.html  # Renomeia e move o relatório HTML
+      - name: Converter relatório JSON em HTML
+        run: k6 report result.json --out report/index.html  # Converte o relatório JSON em HTML
 
       - name: Carregar artefato
         uses: actions/upload-artifact@v3
