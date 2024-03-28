@@ -18,12 +18,8 @@ jobs:
           pip install -r requirements.txt
           sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Instalar K6 Action
-        run: |
-          curl -sSL https://github.com/grafana/k6-action/releases/latest/download/install.sh | sh
-      
       - name: Executar teste de carga K6
-        uses: grafana/k6-action@v0
+        uses: grafana/k6-action@main
         with:
           filename: "teste-esteira.js"
 
