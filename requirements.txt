@@ -1,4 +1,2 @@
-grafana/k6-action@v==0.3.0.1
-
 pacote1
 pacote2
