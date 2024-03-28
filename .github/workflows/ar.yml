@@ -31,8 +31,11 @@ jobs:
       - name: Executar teste de carga K6 e gerar relatório JSON
         run: k6 run --out json=result.json teste-esteira.js  # Gera um relatório JSON
 
-      - name: Converter relatório JSON em HTML
-        run: k6 report result.json --out report/index.html  # Converte o relatório JSON em HTML
+      - name: Instalar k6-reporter
+        run: npm install k6-reporter
+
+      - name: Gerar relatório HTML
+        run: npx k6-reporter result.json report/index.html
 
       - name: Carregar artefato
         uses: actions/upload-artifact@v3
