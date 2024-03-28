@@ -1,4 +1,4 @@
-name: K6 load test
+name: Teste de carga K6
 
 on:
   push:
@@ -7,28 +7,34 @@ on:
 
 jobs:
   build:
-    name: K6 load test
+    name: Teste de carga K6
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       
-      - name: Install dependencies
-        run: pip install -r C:\k6-actions\requirements.txt
+      - name: Instalar dependências Python
+        run: |
+          pip install -r requirements.txt
+          sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Run K6 load test
-        uses: grafana/k6-action@v0.3.0
+      - name: Instalar K6 Action
+        run: |
+          curl -fsSL https://github.com/grafana/k6-action/releases/download/v0.3.0.1/install.sh | sh
+      
+      - name: Executar teste de carga K6
+        uses: grafana/k6-action@v0.3.0.1
         with:
-          filename: "C:\k6-actions\teste-esteira.js"
+          filename: "teste-esteira.js"
 
-      - name: Create Report Directory
+      - name: Criar diretório de relatório
         run: mkdir report
 
-      - name: Move Index HTML to Report Directory
+      - name: Mover Index HTML para o diretório de relatório
         run: mv index.html report
 
-      - name: Upload Artifact
+      - name: Carregar artefato
         uses: actions/upload-artifact@v3
         with: 
-          name: Performance Test Report
+          name: Relatório de Teste de Performance
           path: report
