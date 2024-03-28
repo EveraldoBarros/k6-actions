@@ -43,22 +43,8 @@ jobs:
         run: node /home/runner/work/k6-no-actions/k6-reporter.js result.json report/index.html
         working-directory: ${{ github.workspace }}
 
-      - name: Carregar artefato
+      - name: Upload artefato
         uses: actions/upload-artifact@v3
         with: 
           name: Relatório de Teste de Performance
           path: report
-
-      - name: Criar diretório de relatório
-  run: mkdir -p report
-
-- name: Gerar relatório HTML
-  run: node k6-reporter.js
-  working-directory: ${{ github.workspace }}
-
-- name: Upload artefato
-  uses: actions/upload-artifact@v3
-  with: 
-    name: Relatório de Teste de Performance
-    path: report
-    
