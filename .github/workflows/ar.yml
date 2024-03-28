@@ -21,7 +21,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '21.7.1'
+          node-version: '19.1'
 
       - name: Instalar dependências Python
         run: pip install -r requirements.txt
