@@ -1,4 +1,4 @@
-name: Teste de carga K6
+name: Teste de carga Python e K6
 
 on:
   push:
@@ -7,21 +7,25 @@ on:
 
 jobs:
   build:
-    name: Teste de carga K6
+    name: Teste de carga Python e K6
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x' # Especifique a versão do Python que você precisa
+
       - name: Instalar dependências Python
-        run: |
-          pip install -r requirements.txt
-          sudo apt-get update && sudo apt-get install -y jq
+        run: pip install -r requirements.txt
+
+      - name: Setup K6
+        uses: k6io/setup-k6@v0.1.4
 
       - name: Executar teste de carga K6
-        uses: grafana/k6-action@main
-        with:
-          filename: "teste-esteira.js"
+        run: k6 run teste-esteira.js  # Substitua pelo seu script K6
 
       - name: Criar diretório de relatório
         run: mkdir report
