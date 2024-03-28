@@ -1,3 +1,2 @@
 requests==2.26.0
 pytest==7.2.2
-node==21.7.1
