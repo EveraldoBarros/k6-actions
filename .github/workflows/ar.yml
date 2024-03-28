@@ -39,8 +39,51 @@ jobs:
       - name: Criar diretório de relatório
         run: mkdir -p report
 
+      - name: Criar arquivo k6-reporter.js
+        run: |
+          echo "const fs = require('fs');
+
+// Carrega o relatório JSON gerado pelo k6
+const reportData = JSON.parse(fs.readFileSync('result.json', 'utf8'));
+
+// Gera o conteúdo HTML do relatório
+const htmlContent = \`
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Relatório de Teste de Carga</title>
+</head>
+<body>
+  <h1>Relatório de Teste de Carga</h1>
+  <h2>Resumo</h2>
+  <p>Total de requests: \${reportData.metrics.http_reqs.count}</p>
+  <p>Duração total: \${reportData.metrics.iterations.duration}</p>
+  <!-- Adicione mais métricas conforme necessário -->
+</body>
+</html>
+\`;
+
+// Escreve o conteúdo HTML no arquivo index.html
+fs.writeFileSync('report/index.html', htmlContent);" > k6-reporter.js
+
+      - name: Criar arquivo index.html
+        run: |
+          echo "<!DOCTYPE html>
+<html>
+<head>
+  <title>Relatório de Teste de Carga</title>
+</head>
+<body>
+  <h1>Relatório de Teste de Carga</h1>
+  <h2>Resumo</h2>
+  <p>Total de requests: [total de requests]</p>
+  <p>Duração total: [duração total]</p>
+  <!-- Adicione mais métricas conforme necessário -->
+</body>
+</html>" > report/index.html
+
       - name: Gerar relatório HTML
-        run: node /home/runner/work/k6-no-actions/k6-reporter.js result.json report/index.html
+        run: node k6-reporter.js
         working-directory: ${{ github.workspace }}
 
       - name: Carregar artefato
