@@ -31,11 +31,12 @@ jobs:
       - name: Executar teste de carga K6 e gerar relatório JSON
         run: k6 run --out json=result.json teste-esteira.js  # Gera um relatório JSON
 
-      - name: Instalar k6-reporter
-        run: npm install k6-reporter
+      - name: Criar diretório de relatório
+        run: mkdir -p report
 
       - name: Gerar relatório HTML
-        run: npx k6-reporter result.json report/index.html
+        run: node /home/runner/work/k6-no-actions/k6-reporter.js result.json report/index.html
+        working-directory: ${{ github.workspace }}
 
       - name: Carregar artefato
         uses: actions/upload-artifact@v3
