@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Teste de carga Python e K6
+    name: Teste de performance K6
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
