@@ -20,10 +20,10 @@ jobs:
 
       - name: Instalar K6 Action
         run: |
-          curl -fsSL https://github.com/grafana/k6-action/releases/download/v0.3.0.1/install.sh | sh
+          curl -sSL https://github.com/grafana/k6-action/releases/latest/download/install.sh | sh
       
       - name: Executar teste de carga K6
-        uses: grafana/k6-action@v0.3.0.1
+        uses: grafana/k6-action@v0
         with:
           filename: "teste-esteira.js"
 
